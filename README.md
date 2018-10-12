@@ -18,13 +18,15 @@
 
 ### 此外，
 
-A.	Vehicle 跟 Manufacturer間有一個 Categorized 的關係型態，
+* 1.	Vehicle 跟 Manufacturer間有一個 Categorized 的關係型態，
 	* 一台車必屬於一種廠牌，但一廠牌可有數種車。
 
-B.	Violation 與 Owner間有個Has 的關係型態，
+* 2.	Violation 與 Owner間有個Has 的關係型態，
 	* 一個車主可有數個違規事項，但一個違規事項只有一人。
 
-C.	Owner 跟 VehicleLicense間也有個屬於 (Belongs) 的關係型態。
+* 3.	Owner 跟 VehicleLicense間也有個屬於 (Belongs) 的關係型態。
 	* 一個人有數種行照，但一行照只能一人擁有
 	
+###該資料ER Model如下：
+
 ![image](ER.PNG)
