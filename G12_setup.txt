@@ -1,0 +1,15 @@
+step1.將G12_source.zip解壓縮得"final_project"資料夾
+
+step2.打開MySQL Workbench應用程式Server → Data Import → Impore from Self-Contained File 選擇G12.sql將資料庫檔案匯入
+
+step3.打開Visual Studio Code應用程式開啟資料夾final_project
+
+step4.將final_project\util\database.js內的database選擇到剛剛import時的資料庫
+
+step5.按下ctrl+` 開啟terminal
+
+step6.執行指令npm install安裝所需套件 (若套件都有安裝過則可省去此步驟)
+
+step7.執行指令npm start
+
+step8.開啟瀏覽器網址輸入 http://localhost:3000/ 即可開始使用

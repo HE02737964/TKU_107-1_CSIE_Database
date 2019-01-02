@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Viloation</title>
+  <script>
+    function editPost(time) {
+      window.location.href = "/edit?time=" + time;
+    }
+    function addPost() {
+      document.getElementById("addPost").submit();
+    }
+    function addVehLic() {
+      document.getElementById("addVehLic").submit();
+    }
+    function addVeh() {
+      document.getElementById("addVeh").submit();
+    }
+    function addOwner() {
+      document.getElementById("addOwner").submit();
+    }
+    function addVio() {
+      document.getElementById("addVio").submit();
+    }
+
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+    <div class="container">
+      <a href="/" class="navbar-brand">Blogen</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav">
+          <li class="nav-item px-2">
+            <a href="/" class="nav-link active">Violation</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./owner" class="nav-link">Owner</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./vehicle" class="nav-link">Vehicle</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./vehiclelicence" class="nav-link">VehicleLicence</a>
+          </li>
+          <li class="nav-item px-2">
+            <a href="./manufactwer" class="nav-link">Manufactwer</a>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown mr-3">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              <i class="fas fa-user"></i> Welcome Brad
+            </a>
+            <div class="dropdown-menu">
+              <a href="/user/profile" class="dropdown-item">
+                <i class="fas fa-user-circle"></i> Profile
+              </a>
+              <a href="/user/setting" class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="/user/logout" class="nav-link">
+              <i class="fas fa-user-times"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+            <i class="fas fa-cog"></i> Violation</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ACTIONS -->
+  <section id="actions" class="py-2 mb-4 bg-light">
+    <div class="container">
+      <div class="row" style='width: 100%'>
+        <div class="col-md-3">
+          <a href="/add" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addViolationModal">
+            <i class="fas fa-plus"></i> Add Violation
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="/owner/add" class="btn btn-success btn-block" data-toggle="modal" data-target="#addOwnerModal">
+            <i class="fas fa-plus"></i> Add Owner
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="/vehicle/add" class="btn btn-info btn-block" data-toggle="modal" data-target="#addVehicleModal">
+            <i class="fas fa-plus"></i> Add Vehicle
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="/vehiclelicence/add" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#addVehicleLicenceModal">
+            <i class="fas fa-plus"></i> Add VehicleLicence
+          </a>
+        </div>
+        <div class="col-md-3">
+          <a href="/manufactwer/add" class="btn btn-danger btn-block" data-toggle="modal" data-target="#addManufactwerModal">
+            <i class="fas fa-plus"></i> Add Manufactwer
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <section id="posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <h4>Violation List</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Time</th>
+                  <th>Item</th>
+                  <th>Place</th>
+                  <th>LicenceNumber</th>
+                  <th>OwnerId</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for ( var i = 0 ; i  <  data.length ; i++){ %>
+                <tr>
+                  <td>
+                    <%= data[i].time %>
+                  </td>
+                  <td>
+                    <%= data[i].item %>
+                  </td>
+                  <td>
+                    <%= data[i].place %>
+                  </td>
+                  <td>
+                    <%= data[i].LicenceNumber %>
+                  </td>
+                  <td>
+                    <%if(!data[i].OwnerId)  {  %>
+                    Null
+                    <% } else { %>
+                    <%= data[i].OwnerId %>
+                    <% } %>
+                  </td>
+                  <td>
+                    <button value="Details" class="btn btn-secondary" onclick="editPost('<%= data[i].time %>')">
+                      <i class="fas fa-angle-double-right"></i> Details
+                    </button>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center bg-primary text-white mb-3">
+            <div class="card-body">
+              <h3>Violation</h3>
+              <h4 class="display-4">
+                <i class="fas fa-pencil-alt"></i>
+                <%= violationCount %>
+              </h4>
+              <a href="/" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body ">
+              <h3>Owner</h3>
+              <h4 class="display-4">
+                <i class="fas fa-folder"></i>
+                <%= ownerCount %>
+              </h4>
+              <a href="./owner" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-warning text-white mb-3">
+            <div class="card-body">
+              <h3>Vehicle</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>
+                <%= vehicleCount %>
+              </h4>
+              <a href="./vehicle" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-primary text-white mb-3">
+            <div class="card-body">
+              <h3>VehicleLicence</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>
+                <%= vehicleLicenceCount %>
+              </h4>
+              <a href="./vehicleLicence" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+          <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body">
+              <h3>Manufactwer</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>
+                <%= manufactwerCount %>
+              </h4>
+              <a href="./manufactwer" class="btn btn-outline-light btn-sm">View</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="lead text-center">
+            Copyright &copy;
+            <span id="year"></span>
+            Blogen
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- MODALS -->
+
+  <!-- ADD Manufactwer MODAL -->
+  <div class="modal fade" id="addManufactwerModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Manufactwer</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addPost" action="/manufactwer/add" method="post">
+            <div class="form-group">
+              <label for="MName">MName</label>
+              <input type="text" name="MName" class="form-control" value="" placeholder="MName">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addPost()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD VehicleLicence MODAL -->
+  <div class="modal fade" id="addVehicleLicenceModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add VehicleLicence</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addVehLic" action="/vehiclelicence/add" method="post">
+            <div class="form-group">
+              <label for="LicenceNumber">LicenceNumber</label>
+              <input type="text" name="LicenceNumber" class="form-control" value="" placeholder="LicenceNumber">
+            </div>
+            <div class="form-group">
+              <label for="VehicleKind">VehicleKind</label>
+              <input type="text" name="VehicleKind" class="form-control" value="" placeholder="VehicleKind">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addVehLic()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Vehicle MODAL -->
+  <div class="modal fade" id="addVehicleModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Vehicle</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addVeh" action="/vehicle/add" method="post">
+            <div class="form-group">
+              <label for="EngineNumber">EngineNumber</label>
+              <input type="text" name="EngineNumber" class="form-control" value="" placeholder="EngineNumber">
+            </div>
+            <div class="form-group">
+              <label for="Model">Model</label>
+              <input type="text" name="model" class="form-control" value="" placeholder="Model">
+            </div>
+            <div class="form-group">
+              <label for="Color">Color</label>
+              <input type="text" name="color" class="form-control" value="" placeholder="Color">
+            </div>
+
+            <div class="form-group">
+              <label for="OwnerId">OwnerId</label>
+              <select class="form-control" name="OwnerId">
+                <% 
+                        for ( var i = 0 ; i < owners.length ; i++){ 
+                          var selected = ( i==0 ) ? "selected" : "";
+                      %>
+                <option value="<%= owners[i].OwnerId %>" <%=selected %>>
+                  <%= owners[i].OwnerId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="MId">MId</label>
+              <select class="form-control" name="MId">
+                <% 
+                          for ( var i = 0 ; i < Manufactwers.length ; i++){ 
+                            var selected = ( i==0 ) ? "selected" : "";
+                        %>
+                <option value="<%= Manufactwers[i].MId %>" <%=selected %>>
+                  <%= Manufactwers[i].MId %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addVeh()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD Owner MODAL -->
+  <div class="modal fade" id="addOwnerModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Owner</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addOwner" action="/owner/add" method="post">
+            <div class="form-group">
+              <label for="OwnerId">OwnerId</label>
+              <input type="text" name="OwnerId" class="form-control" value="" placeholder="OwnerId">
+            </div>
+            <div class="form-group">
+              <label for="Name">Name</label>
+              <input type="text" name="name" class="form-control" value="" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="Sex">Sex</label>
+              <input type="text" name="sex" class="form-control" value="" placeholder="Sex">
+            </div>
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <input type="text" name="address" class="form-control" value="" placeholder="Address">
+              </div>
+              <div class="form-group">
+                  <label for="Phone">Phone</label>
+                  <input type="text" name="phone" class="form-control" value="" placeholder="Phone">
+                </div>
+            <div class="form-group">
+              <label for="LicenceNumber">LicenceNumber</label>
+              <select class="form-control" name="LicenceNumber">
+                <% 
+                  for ( var i = 0 ; i < VehicleLicences.length ; i++){ 
+                    var selected = ( i==0 ) ? "selected" : "";
+                %>
+                <option value="<%= VehicleLicences[i].LicenceNumber %>" <%=selected %>>
+                  <%= VehicleLicences[i].LicenceNumber %>
+                </option>
+                <% } %>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" onclick="addOwner()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- ADD Violation MODAL -->
+   <div class="modal fade" id="addViolationModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Add Violation</h5>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addVio" action="/add" method="post">
+              <div class="form-group">
+                <label for="Time">Time</label>
+                <input type="text" name="time" class="form-control" value="" placeholder="Time">
+              </div>
+              <div class="form-group">
+                <label for="Item">Item</label>
+                <input type="text" name="item" class="form-control" value="" placeholder="Item">
+              </div>
+              <div class="form-group">
+                <label for="Place">Place</label>
+                <input type="text" name="place" class="form-control" value="" placeholder="Place">
+              </div>
+              <div class="form-group">
+                <label for="LicenceNumber">LicenceNumber</label>
+                <select class="form-control" name="LicenceNumber">
+                  <% 
+                    for ( var i = 0 ; i < VehicleLicences.length ; i++){ 
+                      var selected = ( i==0 ) ? "selected" : "";
+                  %>
+                  <option value="<%= VehicleLicences[i].LicenceNumber %>" <%=selected %>>
+                    <%= VehicleLicences[i].LicenceNumber %>
+                  </option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="form-group">
+                  <label for="OwnerId">OwnerId</label>
+                  <select class="form-control" name="OwnerId">
+                    <% 
+                      for ( var i = 0 ; i < owners.length ; i++){ 
+                        var selected = ( i==0 ) ? "selected" : "";
+                    %>
+                    <option value="<%= owners[i].OwnerId %>" <%=selected %>>
+                      <%= owners[i].OwnerId %>
+                    </option>
+                    <% } %>
+                  </select>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" onclick="addVio()">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/af.js"></script>
+  <script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+
+    CKEDITOR.replace('editor1');
+  </script>
+</body>
+
+</html>
